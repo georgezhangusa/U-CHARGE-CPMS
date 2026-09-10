@@ -1,0 +1,6 @@
+{
+  "name": "U-CHARGE CPMS",
+  "description": "EV Charging Management System with real-time fleet operations, charger diagnostics, and site load management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
