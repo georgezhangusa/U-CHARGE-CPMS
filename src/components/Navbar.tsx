@@ -7,7 +7,6 @@ import {
   Radio,
   Sliders,
   Bell,
-  Cpu,
 } from 'lucide-react';
 import { SystemAlert } from '../types';
 
@@ -16,6 +15,8 @@ interface NavbarProps {
   onOpenAlerts: () => void;
   onOpenSimulator: () => void;
   emulatedCount: number;
+  fleetOnlinePercent?: string | number;
+  hubsCount?: number;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -23,6 +24,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenAlerts,
   onOpenSimulator,
   emulatedCount,
+  fleetOnlinePercent = '98.4',
+  hubsCount = 4,
 }) => {
   const [timeStr, setTimeStr] = useState('');
 
@@ -68,21 +71,28 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Center Status Indicators */}
       <div className="hidden md:flex items-center gap-4">
         {/* Fleet Health status */}
-        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/90 border border-slate-700 text-xs">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-slate-200 font-medium">98.4% Fleet Online</span>
-          <span className="text-slate-400 text-[10px] font-mono">• 4 Hubs</span>
-        </div>
-
-        {/* Emulated badge */}
-        <button
-          type="button"
-          onClick={onOpenSimulator}
-          className="btn-3d btn-3d-purple flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-xs font-mono font-semibold"
+        <div
+          id="navbar-fleet-health-pill"
+          className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/95 border border-slate-700/80 hover:border-emerald-500/40 transition-colors text-xs shadow-xs"
         >
-          <Cpu className="w-3.5 h-3.5" />
-          <span>{emulatedCount} Emulated Nodes</span>
-        </button>
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+          <span
+            id="navbar-fleet-online-badge"
+            className="text-emerald-400 font-semibold font-mono tracking-tight text-xs flex items-center gap-1"
+          >
+            <span>{fleetOnlinePercent}%</span>
+            <span className="text-slate-200 font-sans font-medium">Online</span>
+          </span>
+          <span
+            id="navbar-fleet-hubs-count"
+            className="inline-flex items-center gap-1.5 pl-2 border-l border-slate-700/90 text-xs font-mono tracking-tight text-slate-300"
+          >
+            <span className="px-1.5 py-0.2 rounded bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 font-bold">
+              {hubsCount}
+            </span>
+            <span className="font-medium text-slate-200">Sites</span>
+          </span>
+        </div>
       </div>
 
       {/* Right controls */}

@@ -650,6 +650,10 @@ export default function App() {
   const criticalAlertsCount = alerts.filter((a) => a.severity === 'critical').length;
   const activeSessionsCount = sessions.filter((s) => s.status === 'active').length;
   const totalChargersFromSites = sites.reduce((sum, s) => sum + (s.totalChargers || 0), 0);
+  const onlineChargersCount = chargers.filter((c) => c.wsStatus === 'connected').length;
+  const fleetOnlinePercent = chargers.length > 0
+    ? ((onlineChargersCount / chargers.length) * 100).toFixed(1)
+    : '98.4';
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-cyan-100 selection:text-cyan-900">
@@ -659,6 +663,8 @@ export default function App() {
         onOpenAlerts={() => setCurrentTab('home')}
         onOpenSimulator={() => setCurrentTab('settings')}
         emulatedCount={emulatedCount}
+        fleetOnlinePercent={fleetOnlinePercent}
+        hubsCount={sites.length}
       />
 
       {/* Main Layout Body */}
